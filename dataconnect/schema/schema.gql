@@ -1,0 +1,70 @@
+type User @table {
+  email: String!
+  passwordHash: String!
+  userType: String!
+  createdAt: Timestamp!
+  lastLoginAt: Timestamp
+}
+
+type ProfessionalProfile @table {
+  user: User!
+  displayName: String!
+  bio: String!
+  headline: String!
+  isPublic: Boolean!
+  photoUrl: String
+  linkedinUrl: String
+  githubUrl: String
+  portfolioUrl: String
+  location: String
+}
+
+type Skill @table {
+  professionalProfile: ProfessionalProfile!
+  name: String!
+  level: String
+}
+
+type CompanyProfile @table {
+  user: User!
+  companyName: String!
+  description: String!
+  industry: String!
+  isPublic: Boolean!
+  createdAt: Timestamp!
+  websiteUrl: String
+  logoUrl: String
+  headquartersLocation: String
+  companySize: String
+}
+
+type Project @table {
+  title: String!
+  description: String!
+  startDate: Date!
+  isPublic: Boolean!
+  endDate: Date
+  projectUrl: String
+  associatedProfessionalProfile: ProfessionalProfile
+  associatedCompanyProfile: CompanyProfile
+}
+
+type JobPosting @table {
+  companyProfile: CompanyProfile!
+  title: String!
+  description: String!
+  location: String!
+  employmentType: String!
+  postedAt: Timestamp!
+  status: String!
+  salaryRange: String
+  responsibilities: String
+}
+
+type Application @table {
+  professionalProfile: ProfessionalProfile!
+  jobPosting: JobPosting!
+  appliedAt: Timestamp!
+  status: String!
+  coverLetter: String
+}
